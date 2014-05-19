@@ -14,6 +14,9 @@ if( isset($_FILES['archive'] ) ) {
 			
 	$new_xml = @$handler->delete_articles();
 
-	var_dump( $new_xml );
+	echo htmlspecialchars( $new_xml->asXML() );
+	#echo $handler->create_new_archive($new_xml)->asXML();
+
+	#var_dump( $new_xml );
 }
 ?>

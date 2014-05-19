@@ -44,7 +44,7 @@
 			</div>	
 			<div class="row">
 			    <div class="col-md-7">
-					<input type="button" class="btn btn-primary btn-lg btn-block" value="submit"/>
+					<input type="submit" class="btn btn-primary btn-lg btn-block" value="submit"/>
 				</div>
 			</div>		
 		</form>

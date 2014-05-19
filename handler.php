@@ -94,13 +94,14 @@ if( ! class_exists( 'XMLHandler' ) ) :
 				foreach( $this->archive_history as $article )
 				{
 					//if found, remove the article
-					if( $article->id == $article_id ){
+					if( $article->id == $article_id )
 						$new_xml = @$this->delete_helper( $xml_copy, $article_id );
-					}
+					//if there's nothing to delete
+					else
+						$new_xml = $this->xml;
 				}
 			} 
 			return $new_xml;
 		}
 	}
 endif;
-?>
