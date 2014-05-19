@@ -4,7 +4,7 @@
  * @subpackage Archives Filter
  * 
  * Helper class to manipulate xml file 
- * Accepts an xml file from form submission. 
+ * Accepts an xml file via form submission. 
  */
 
 if( ! class_exists( 'XMLHandler' ) ) :
