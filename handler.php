@@ -85,9 +85,8 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * Deletes an all  node from xml dom
 		 * @param int $brafton_id
 		 */
-		function delete_articles(){
-			
-			$xml_copy = $this->xml; 
+		function delete_articles()
+		{
 			//for every given id in article list
 			foreach( $this->id_list as $article_id ){
 				//check for it's existence in the archive history array
@@ -95,7 +94,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 				{
 					//if found, remove the article
 					if( $article->id == $article_id )
-						$new_xml = @$this->delete_helper( $xml_copy, $article_id );
+						$new_xml = @$this->delete_helper( $this->xml, $article_id );
 					//if there's nothing to delete
 					else
 						$new_xml = $this->xml;
