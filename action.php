@@ -15,7 +15,9 @@ if( isset($_FILES['archive'] ) ) {
 
 	
 	$handler = new XMLHandler( $file, $_POST );  
+			
+	$new_xml = @$handler->delete_articles();
 
-	# echo $handler->format_string();
+	var_dump( $new_xml );
 }
 ?>

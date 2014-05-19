@@ -36,21 +36,16 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 */
 		function __construct( $xml_file, $attr ){
 
-			if( $attr['filter'] == 'exclude' )
+			if( $attr['filter'] == 'exclude' ) {
 				$this->exclude = $attr['filter'];
 
-			#$this->id_list = explode( ' ', $attr['articlelist'] ); 
-
-			$this->id_list = array( "599015" ); 
-
+				$this->id_list = explode( ' ', $attr['articlelist'] ); 
+			}
 			//read temp file into xml object
 			$this->xml = simplexml_load_file( $xml_file );
 
 			//array containing article all nodes 
 			$this->archive_history = $this->load_archive();
-
-			$this->delete_articles();
-
 		}
 
 		/**
@@ -65,22 +60,25 @@ if( ! class_exists( 'XMLHandler' ) ) :
 			return $articles;
 		}
 
-
+		/**
+		 * Removes individual article from xml file
+		 * @param SimpleXMLElement $xml
+		 * @param String $article 
+		 * 
+		 * @return SimpleXMLElement $xml
+		 */
 		function delete_helper( $xml, $article ){
 			$i = 0;
 			if( isset($xml->newsListItem)  )
 			{
 				foreach( $xml->newsListItem as $item )
 				{
-
 					if( $item->id == $article ){
 						unset( $xml->newsListItem[$i] );
 					}
 					$i++;
 				}
-				
 			}
-			
 			return $xml;
 		}
 		/**
@@ -90,24 +88,19 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		function delete_articles(){
 			
 			$xml_copy = $this->xml; 
-			//for every given id
+			//for every given id in article list
 			foreach( $this->id_list as $article_id ){
 				//check for it's existence in the archive history array
 				foreach( $this->archive_history as $article )
 				{
-					//if found, delete it
+					//if found, remove the article
 					if( $article->id == $article_id ){
 						$new_xml = @$this->delete_helper( $xml_copy, $article_id );
-						echo "test";
-						#var_dump( $xml_copy->$node);
-						#var_dump( $article );
-
 					}
 				}
 			} 
-			var_dump( $new_xml );
+			return $new_xml;
 		}
-
 	}
 endif;
 ?>
