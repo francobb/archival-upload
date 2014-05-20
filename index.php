@@ -8,7 +8,7 @@
 <html>
 <?php require_once 'header.php' ?>
 <body>
-	<div class="row" style="margin: 0 0 3em 0;">
+	<div class="row wrapper main" style="margin: 0 0 3em 0;">
     	<div class="col-md-10 col-md-offset-1">
 			<h1>Terminati</h1>
 			<div class="description">
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row wrapper form">
 	    <div class="col-md-7 col-md-offset-4">
 	    	<form class="form-horizontal center" method="post" action="action.php" enctype= "multipart/form-data">
 			<div class="form-group">
