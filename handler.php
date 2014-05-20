@@ -40,7 +40,6 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * @param $attr 
 		 */
 		function __construct( $xml_file, $attr ){
-
 			if( $attr['filter'] == 'exclude' ) {
 				$this->exclude = $attr['filter'];
 				//Grab all article id's from form field
@@ -91,21 +90,23 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * Deletes an all given articles from xml file
 		 * @return SimpleXMlElement $new_xml
 		 */
-		function delete_articles()
-		{
+		function delete_articles(){
+			$deleted = 0; 
 			//for every given id in article list
 			foreach( $this->id_list as $article_id ){
 				//check for it's existence in the archive history array
-				foreach( $this->archive_history as $article )
-				{
+				foreach( $this->archive_history as $article ){
 					//if found, remove the article
-					if( $article->id == $article_id )
+					if( $article->id == $article_id ){
 						$new_xml = @$this->delete_single_article( $this->xml, $article_id );
-					//if there's nothing to delete
-					else
-						$new_xml = false;
+						$deleted++; 
+					}
 				}
 			} 
+			//if there was nothing to delete
+			if( $delted === 0 )
+				return $deleted;
+
 			return $new_xml;
 		}
 	}
