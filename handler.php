@@ -5,6 +5,11 @@
  * 
  * Helper class to manipulate xml file 
  * Accepts an xml file via form submission. 
+ * 
+ * todo: break out longer xml archives files into several shorter ones. 
+ * 
+ * make sure filenames are not all the same. Perhaps name the files by the dates
+ * of the articles in them.
  */
 
 if( ! class_exists( 'XMLHandler' ) ) :
@@ -38,7 +43,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 
 			if( $attr['filter'] == 'exclude' ) {
 				$this->exclude = $attr['filter'];
-
+				//Grab all article id's from form field
 				$this->id_list = explode( ' ', $attr['articlelist'] ); 
 			}
 			//read temp file into xml object
@@ -67,7 +72,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * 
 		 * @return SimpleXMLElement $xml
 		 */
-		function delete_helper( $xml, $article ){
+		function delete_single_article( $xml, $article ){
 			$i = 0;
 			if( isset($xml->newsListItem)  )
 			{
@@ -81,9 +86,10 @@ if( ! class_exists( 'XMLHandler' ) ) :
 			}
 			return $xml;
 		}
+
 		/**
-		 * Deletes an all  node from xml dom
-		 * @param int $brafton_id
+		 * Deletes an all given articles from xml file
+		 * @return SimpleXMlElement $new_xml
 		 */
 		function delete_articles()
 		{
@@ -94,18 +100,13 @@ if( ! class_exists( 'XMLHandler' ) ) :
 				{
 					//if found, remove the article
 					if( $article->id == $article_id )
-						$new_xml = @$this->delete_helper( $this->xml, $article_id );
+						$new_xml = @$this->delete_single_article( $this->xml, $article_id );
 					//if there's nothing to delete
 					else
 						$new_xml = $this->xml;
 				}
 			} 
 			return $new_xml;
-		}
-
-		function get_file_name()
-		{
-
 		}
 	}
 endif;

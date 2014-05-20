@@ -12,7 +12,7 @@
     	<div class="col-md-10 col-md-offset-1">
 			<h1>Terminati</h1>
 			<div class="description">
-				<p>Terminati intends to help Brafton keep clients from terminating. Use this elegantly designed tool to frequently check for missing content so our client's don't have to. </p>
+				<p>Terminati intends to help Brafton keep clients from terminating. Use this elegantly designed tool to frequently check for missing content so our clients don't have to. </p>
 				<h3>Directions</h3>
 				<p>1. Query the client's database for an ids list containing all successfully imported articles<p>
 				<p>2. Download an xml archives history for the client from curator.</p>
