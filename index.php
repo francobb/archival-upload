@@ -29,13 +29,10 @@
 	    	<form class="form-horizontal center" method="post" action="action.php" enctype= "multipart/form-data">
 			<div class="form-group">
 				<p>Fill out the form below to filter unwanted content from a Brafton xml feed. </p>
-				<p>Article List: <input type="textarea"  name="articlelist" required="required" placeholder="Enter article id's" /></p>	
-				<p>Do you wish to include or exclude the Articles in your new xml files? <br />
-					<input type="radio" name="filter" 
-					value="include"  /> Include
-					<input type="radio" checked="checked" name="filter" 
-					value="exclude"> Exclude
-				</p>
+				<label for="list">Article List:</label><input id="list" type="textarea"  name="articlelist" required="required" placeholder="Enter article id's" style=" margin-left: 10px;"/>	
+				<p>Do you wish to include or exclude the Articles in your new xml files? <br /></p>
+					<label for="includebtn" >Include:</label><input id="includebtn" type="radio" name="filter" value="include" style=" margin-left: 5px;"/> 
+					<label for="excludebtn" style=" margin-left: 10px; "> Exclude</label><input id="excludebtn" type="radio" checked="checked" name="filter" value="exclude" style=" margin-left: 5px;"/> 
 			</div>
 			<div class="form-group">
 				<p>Upload your XML file: 
