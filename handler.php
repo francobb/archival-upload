@@ -103,7 +103,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 						$new_xml = @$this->delete_single_article( $this->xml, $article_id );
 					//if there's nothing to delete
 					else
-						$new_xml = $this->xml;
+						$new_xml = false;
 				}
 			} 
 			return $new_xml;
