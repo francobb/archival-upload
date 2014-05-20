@@ -1,7 +1,7 @@
 <?php 
 /**
  * @author Ali <techsupport@brafton.com>
- * @subpackage Archives Filter
+ * @package Archives Filter
  * 
  * Helper class to manipulate xml file 
  * Accepts an xml file via form submission. 
@@ -101,6 +101,11 @@ if( ! class_exists( 'XMLHandler' ) ) :
 				}
 			} 
 			return $new_xml;
+		}
+
+		function get_file_name()
+		{
+
 		}
 	}
 endif;
