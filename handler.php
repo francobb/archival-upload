@@ -104,8 +104,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 				}
 			} 
 			//if there was nothing to delete
-			if( $delted === 0 )
-				return $deleted;
+			if( $delted === 0 ) return $deleted;
 
 			return $new_xml;
 		}
