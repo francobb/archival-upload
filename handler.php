@@ -1,10 +1,15 @@
 <?php 
 /**
  * @author Ali <techsupport@brafton.com>
- * @subpackage Archives Filter
+ * @package Archives Filter
  * 
  * Helper class to manipulate xml file 
  * Accepts an xml file via form submission. 
+ * 
+ * todo: break out longer xml archives files into several shorter ones. 
+ * 
+ * make sure filenames are not all the same. Perhaps name the files by the dates
+ * of the articles in them.
  */
 
 if( ! class_exists( 'XMLHandler' ) ) :
@@ -35,10 +40,9 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * @param $attr 
 		 */
 		function __construct( $xml_file, $attr ){
-
 			if( $attr['filter'] == 'exclude' ) {
 				$this->exclude = $attr['filter'];
-
+				//Grab all article id's from form field
 				$this->id_list = explode( ' ', $attr['articlelist'] ); 
 			}
 			//read temp file into xml object
@@ -67,7 +71,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * 
 		 * @return SimpleXMLElement $xml
 		 */
-		function delete_helper( $xml, $article ){
+		function delete_single_article( $xml, $article ){
 			$i = 0;
 			if( isset($xml->newsListItem)  )
 			{
@@ -81,25 +85,27 @@ if( ! class_exists( 'XMLHandler' ) ) :
 			}
 			return $xml;
 		}
+
 		/**
-		 * Deletes an all  node from xml dom
-		 * @param int $brafton_id
+		 * Deletes an all given articles from xml file
+		 * @return SimpleXMlElement $new_xml
 		 */
-		function delete_articles()
-		{
+		function delete_articles(){
+			$deleted = 0; 
 			//for every given id in article list
 			foreach( $this->id_list as $article_id ){
 				//check for it's existence in the archive history array
-				foreach( $this->archive_history as $article )
-				{
+				foreach( $this->archive_history as $article ){
 					//if found, remove the article
-					if( $article->id == $article_id )
-						$new_xml = @$this->delete_helper( $this->xml, $article_id );
-					//if there's nothing to delete
-					else
-						$new_xml = $this->xml;
+					if( $article->id == $article_id ){
+						$new_xml = @$this->delete_single_article( $this->xml, $article_id );
+						$deleted++; 
+					}
 				}
 			} 
+			//if there was nothing to delete
+			if( $delted === 0 ) return $deleted;
+
 			return $new_xml;
 		}
 	}
