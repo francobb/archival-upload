@@ -118,13 +118,12 @@ if( ! class_exists( 'XMLHandler' ) ) :
 			return $new_xml;
 		}
 
-		//$boundaryTag, $startAt, $maxItems, $rawdata, $fixedFooter
 		function split_file( $xml_string ){	
 			$args = array( 
 					'boundaryTag' => 'newsListItem', 
-					'startAt' => 0, 
-					'maxItems' => $this->maxnum, 
-					'rawdata' => htmlspecialchars( $xml_string ), 
+					'filename_index' => 0, 
+					'articles_per_file' => $this->maxnum, 
+					'xml_string' => htmlspecialchars( $xml_string ), 
 					'fixedFooter' => '' 
 				);
 
