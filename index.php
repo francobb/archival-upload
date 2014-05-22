@@ -26,16 +26,17 @@
 	    	<form class="form-horizontal center" method="post" action="action.php" enctype= "multipart/form-data">
 				<div class="form-group">
 					<p>Article List: <input type="textarea"  name="articlelist" required="required" placeholder="Enter article id's" /></p>	
-					<p>Do you wish to include or exclude the Articles in your new xml files? <br />
-						<input type="radio" name="filter" 
-						value="include"  /> Include
-						<input type="radio" checked="checked" name="filter" 
-						value="exclude"> Exclude
+					<p>Break up xml file into several smaller files? <br />
+						<input type="radio" name="split" 
+						value="yes"  /> Yes
+						<input type="radio" checked="checked" name="split" 
+						value="no"> No
 					</p>
+					<p>Articles/File: <input type="number" name="maxnum" placeholder="30" /> </p>
 				</div>
 				<div class="form-group">
 					<p>Upload your XML file: 
-						<input type="file" name="archive" id="archive" /><br />
+						<input type="file" name="archive" id="archive" required="required" /><br />
 					</p>
 				</div>	
 			    <div class="col-md-7">

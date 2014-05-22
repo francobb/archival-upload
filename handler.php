@@ -11,7 +11,7 @@
  * make sure filenames are not all the same. Perhaps name the files by the dates
  * of the articles in them.
  */
-
+require_once( 'splitter.php' );
 if( ! class_exists( 'XMLHandler' ) ) :
 	Class XMLHandler {
 
@@ -23,7 +23,7 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		/**
 		 * Bool 
 		 */
-		public $exclude; 
+		#public $exclude; 
 
 		/**
 		 * array
@@ -34,22 +34,31 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * SimpleXMLElement Object
 		 */
 		public $xml;
+
+		/**
+		 * Int
+		 */
+		public $maxnum; 
 		/**
 		 * Receives xml file from upload form.
 		 * @param $file 
 		 * @param $attr 
 		 */
 		function __construct( $xml_file, $attr ){
-			if( $attr['filter'] == 'exclude' ) {
-				$this->exclude = $attr['filter'];
-				//Grab all article id's from form field
-				$this->id_list = explode( ' ', $attr['articlelist'] ); 
+			if( $attr['split'] == 'yes' ) {
+				$this->maxnum = $attr['maxnum'];
 			}
+
+			//Grab all article id's from form field
+			$this->id_list = explode( ' ', $attr['articlelist'] ); 
+
 			//read temp file into xml object
 			$this->xml = simplexml_load_file( $xml_file );
 
 			//array containing article all nodes 
 			$this->archive_history = $this->load_archive();
+
+			#$this->sort_articles_by_date();
 		}
 
 		/**
@@ -108,5 +117,20 @@ if( ! class_exists( 'XMLHandler' ) ) :
 
 			return $new_xml;
 		}
+
+		function split_file( $xml_string ){	
+			$args = array( 
+					'boundaryTag' => 'newsListItem', 
+					'filename_index' => 0, 
+					'articles_per_file' => $this->maxnum, 
+					'xml_string' => htmlspecialchars( $xml_string ), 
+					'fixedFooter' => '' 
+				);
+
+			#var_dump( $args );
+			$splitter = new Splitter();
+
+			$filenames = $splitter->breakIntoFiles( $args );
+		}			
 	}
 endif;
