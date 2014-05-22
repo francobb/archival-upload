@@ -12,6 +12,7 @@ if( isset($_FILES['archive'] ) ) {
 	$handler = new XMLHandler( $file, $_POST );  
 	$new_xml = @$handler->delete_articles();
 
+	var_dump( $new_xml->asXML() );
 	if( gettype( $new_xml ) == 'object' ){ 
 		$new_xml->asXML( 'archives.xml' ); 
 

@@ -47,12 +47,12 @@ if( ! class_exists( 'Splitter' ) ){
 				#var_dump( $footer );
 
 				//process main data		
-				for ($i = 0;$i < $length; $i++){
+				for ( $i = 0; $i < $length; $i++){
 
 						$line  = $arr[$i];
-						var_dump( $line );
 
-					if ( strpos(  $line , htmlspecialchars_decode( '<newsListItem' ) ) !== false ) {
+
+					if ( strpos(  $line , '&lt;newsListItem' ) !== false ) {
 						$items ++;
 						$boundaryIsFound = true;
 					}
@@ -60,22 +60,20 @@ if( ! class_exists( 'Splitter' ) ){
 					if (!$boundaryIsFound)
 						$header .= $line . "\r\n";
 					
-					var_dump( $maxItems ) ;
-					if ( $items >= $maxItems ) {
+					if ( $items >= $maxItems) {
 					$items = 0;
 					$files++;
-
 					$filename =  $files . ".xml";
+
 					$f = fopen($filename, "w");
 					fwrite($f, htmlspecialchars_decode( $header ) );
 					fwrite($f, htmlspecialchars_decode( $chunk ) );
 					fwrite($f, $footer);
 					fclose($f);
 					$arrFiles[] = $filename;
-						echo 'no way hose';
 
 					$chunk = $line . "\r\n";
-					$fileWritten = true;
+					$fileIsWritten = true;
 					}
 					else {
 						$fileIsWritten = false;
@@ -84,19 +82,19 @@ if( ! class_exists( 'Splitter' ) ){
 						}
 					}
 
-					if (!$fileIsWritten ) {
-						#$files++;
-
+					
+				}
+				if ( $fileIsWritten == false ) {
+						$files++;
 						$filename =  $files . ".xml";
 						$f = fopen($filename, "w");
 						fwrite($f,htmlspecialchars_decode( $header ) );
 						fwrite($f, htmlspecialchars_decode($chunk ) );
 						fclose($f);
 						$arrFiles[] = $filename;
-					
+						$fileIsWritten = true;
 					}
-				}
-
+				echo "files: " . $files . ' items: ' . $items . ' maxItems: ' . $maxItems;
 
 				 return $arrFiles;
 
@@ -107,11 +105,14 @@ if( ! class_exists( 'Splitter' ) ){
 		}
 
 		function get_publish_date( $element ){
-			if( strpos( $element, '<publishDate>' !== false ) ){
+			var_dump( $element );
+			if( strpos( $element, ':' !== false ) ){
 				$date = str_replace( '<publishDate>', '', $element ); 
 				$date = str_replace( '</publishDate>', '', $element ); 
 				return $date;
 			}
+	
+			return false;			
 		}
 	}
 }
